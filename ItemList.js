@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
   FlatList,
   Text,
+  Button,
 } from 'react-native';
 
 export default class ItemList extends Component<{}> {
@@ -23,6 +24,7 @@ export default class ItemList extends Component<{}> {
   render() {
     return (
       <FlatList
+        ListHeaderComponent={<Button title='新しいTODOを追加する' onPress={this.props.moveToAddForm} />}
         data={this.props.todoItems}
         keyExtractor={this._keyExtractor}
         renderItem={this._renderItem}

@@ -6,6 +6,7 @@ import ItemList from './ItemList';
 import {
   StyleSheet,
   View,
+  Button,
 } from 'react-native';
 
 export default class TodoListPage extends Component<{}> {
@@ -14,15 +15,13 @@ export default class TodoListPage extends Component<{}> {
     this.state = {
       todoItems: [] // { checked: Bool, text: String }
     }
-
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <AddTodoForm addTodoItem={this._addTodoItem} />
-        <ItemList  />
-      </View>
+      <ItemList
+        todoItems={this.state.todoItems}
+        moveToAddForm={this._moveToAddForm} />
     );
   }
 
@@ -33,6 +32,14 @@ export default class TodoListPage extends Component<{}> {
       title: 'TODOリスト',
       component: ItemList,
       passProps: {todoItems: newTodoItems}
+    });
+  }
+
+  _moveToAddForm = () => {
+    this.props.navigator.push({
+      title: 'TODOを追加する',
+      component: AddTodoForm,
+      passProps: {todoItems: this.state.todoItems, addTodoItem: this._addTodoItem}
     });
   }
 }

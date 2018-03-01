@@ -20,19 +20,21 @@ export default class AddTodoForm extends Component<{}> {
   }
 
   render() {
-
+    console.log(this.state)
     return (
-      <View style={styles.flowRight}>
-        <TextInput
-          style={styles.searchInput}
-          value={this.state.inputValue}
-          placeholder='追加したいTodoListを入力'
-          onChange={this._onInputTextChanged} />
-        <Button
-          onPress={this._onInputPressed}
-          color='#48BBEC'
-          title='Add'
-        />
+      <View style={styles.container}>
+        <View style={styles.flowRight}>
+          <TextInput
+            style={styles.searchInput}
+            value={this.state.inputValue}
+            placeholder='追加したいTodoListを入力'
+            onChange={this._onInputTextChanged} />
+          <Button
+            onPress={this._onInputPressed}
+            color='#48BBEC'
+            title='Add'
+          />
+        </View>
       </View>
     );
   }
@@ -49,6 +51,11 @@ export default class AddTodoForm extends Component<{}> {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    padding: 30,
+    marginTop: 65,
+    alignItems: 'center'
+  },
   description: {
     marginBottom: 20,
     fontSize: 18,
