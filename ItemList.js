@@ -1,6 +1,9 @@
 'use strict';
 
 import React, { Component } from 'react';
+import CheckBox from 'react-native-check-box';
+import AddTodoForm from './AddTodoForm';
+
 import {
   StyleSheet,
   View,
@@ -17,23 +20,27 @@ export default class ItemList extends Component<{}> {
     <ItemText
       item={item}
       index={index}
+      toggleChecked={this.props.toggleChecked}
       onPressItem={this._onPressItem}
     />
   );
 
   render() {
     return (
-      <FlatList
-        ListHeaderComponent={<Button title='新しいTODOを追加する' onPress={this.props.moveToAddForm} />}
-        data={this.props.todoItems}
-        keyExtractor={this._keyExtractor}
-        renderItem={this._renderItem}
-      />
+      <View>
+        <View style={styles.container}>
+          <FlatList
+            data={this.props.todoItems}
+            keyExtractor={this._keyExtractor}
+            renderItem={this._renderItem}
+          />
+        </View>
+        <AddTodoForm addTodoItem={this.props.addTodoItem} />
+      </View>
     );
   }
 
   _onPressItem = (index) => {
-    console.log("Pressed row: " +index);
   };
 }
 
@@ -46,13 +53,25 @@ class ItemText extends React.PureComponent {
     const item = this.props.item;
 
     return (
-      <Text style={styles.title}
-                numberOfLines={1}>{item.text}</Text>
+      <View style={styles.rowContainer}>
+        <CheckBox
+          isChecked={item.checked}
+          onClick={() => this.props.toggleChecked(!item.checked, this.props.index)} />
+        <Text
+          style={styles.title}
+          numberOfLines={1}>
+          {item.text}
+        </Text>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginTop: 25,
+    height: 500
+  },
   thumb: {
     width: 80,
     height: 80,

@@ -21,26 +21,26 @@ export default class TodoListPage extends Component<{}> {
     return (
       <ItemList
         todoItems={this.state.todoItems}
-        moveToAddForm={this._moveToAddForm} />
+        toggleChecked={this._toggleChecked}
+        addTodoItem={this._addTodoItem} />
     );
   }
 
   _addTodoItem = (text) => {
     const newTodoItems = [...this.state.todoItems, { checked: false, text: text }]
     this.setState({ todoItems: newTodoItems })
-    this.props.navigator.push({
-      title: 'TODOリスト',
-      component: ItemList,
-      passProps: {todoItems: newTodoItems}
-    });
   }
 
-  _moveToAddForm = () => {
-    this.props.navigator.push({
-      title: 'TODOを追加する',
-      component: AddTodoForm,
-      passProps: {todoItems: this.state.todoItems, addTodoItem: this._addTodoItem}
-    });
+  _toggleChecked = (checked, index) => {
+    this.setState(
+      { todoItems: [
+        ...this.state.todoItems.slice(0, index),
+        Object.assign({}, this.state.todoItems[index], {
+          checked: checked
+        }),
+        ...this.state.todoItems.slice(index + 1)
+      ]}
+    )
   }
 }
 
