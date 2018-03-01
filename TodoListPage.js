@@ -12,7 +12,7 @@ export default class TodoListPage extends Component<{}> {
   constructor(props) {
     super(props)
     this.state = {
-      todoItems: [{checked: false, text: "テスト"}] // { checked: Bool, text: String }
+      todoItems: [] // { checked: Bool, text: String }
     }
 
   }
@@ -20,10 +20,20 @@ export default class TodoListPage extends Component<{}> {
   render() {
     return (
       <View style={styles.container}>
-        <AddTodoForm />
-        <ItemList todoItems={this.state.todoItems} />
+        <AddTodoForm addTodoItem={this._addTodoItem} />
+        <ItemList  />
       </View>
     );
+  }
+
+  _addTodoItem = (text) => {
+    const newTodoItems = [...this.state.todoItems, { checked: false, text: text }]
+    this.setState({ todoItems: newTodoItems })
+    this.props.navigator.push({
+      title: 'TODOリスト',
+      component: ItemList,
+      passProps: {todoItems: newTodoItems}
+    });
   }
 }
 

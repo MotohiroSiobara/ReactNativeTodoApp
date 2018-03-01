@@ -28,7 +28,7 @@ export default class App extends Component<Props> {
       <NavigatorIOS
         style={styles.container}
         initialRoute={{
-          title: 'Property Finder',
+          title: 'TODOリスト',
           component: TodoListPage,
         }} />
     );

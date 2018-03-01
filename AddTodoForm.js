@@ -16,17 +16,13 @@ export default class AddTodoForm extends Component<{}> {
     super(props);
     this.state = {
       inputValue: '',
-      isLoading: false
     };
   }
 
   render() {
-    const spinner = this.state.isLoading ?
-      <ActivityIndicator size='large'/> : null;
 
     return (
       <View style={styles.flowRight}>
-        {spinner}
         <TextInput
           style={styles.searchInput}
           value={this.state.inputValue}
@@ -47,8 +43,8 @@ export default class AddTodoForm extends Component<{}> {
 
   _onInputPressed = () => {
     this.setState({ isLoading: true })
-
-    this.setState({ isLoading: false, inputValue: '' })
+    this.setState({ inputValue: '' })
+    this.props.addTodoItem(this.state.inputValue)
   };
 }
 
